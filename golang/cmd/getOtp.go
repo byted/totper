@@ -5,10 +5,12 @@ package cmd
 
 import (
 	"fmt"
+	"slices"
 
 	"github.com/byted/totper/internal/keystore"
 	"github.com/byted/totper/internal/totp"
 	"github.com/spf13/cobra"
+	"github.com/spf13/viper"
 )
 
 // getOtpCmd represents the getOtp command
@@ -24,7 +26,14 @@ func init() {
 }
 
 func getTotp(cmd *cobra.Command, args []string) error {
-	secret, err := keystore.RetrieveSecret(args[0])
+	accountName := args[0]
+
+	ax := viper.GetStringSlice("accounts")
+	if !slices.Contains(ax, accountName) {
+		return fmt.Errorf("TOTP account %s does not exist", accountName)
+	}
+
+	secret, err := keystore.RetrieveSecret(accountName)
 	if err != nil {
 		return fmt.Errorf("unable to generate TOTP: %v", err)
 	}

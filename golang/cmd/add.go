@@ -10,6 +10,7 @@ import (
 	"github.com/byted/totper/internal/keystore"
 	"github.com/byted/totper/internal/totp"
 	"github.com/spf13/cobra"
+	"github.com/spf13/viper"
 	"golang.org/x/term"
 )
 
@@ -29,6 +30,10 @@ func init() {
 }
 
 func addAccount(cmd *cobra.Command, args []string) error {
+	accountName := args[0]
+	ax := viper.GetStringSlice("accounts")
+	viper.Set("accounts", append(ax, accountName))
+
 	fmt.Print("Enter Secret: ")
 	secret, err := term.ReadPassword(syscall.Stdin)
 	if err != nil {
@@ -36,7 +41,7 @@ func addAccount(cmd *cobra.Command, args []string) error {
 	}
 	fmt.Println()
 
-	if err := keystore.StoreSecretIfNotExists(args[0], string(secret)); err != nil {
+	if err := keystore.StoreSecretIfNotExists(accountName, string(secret)); err != nil {
 		return fmt.Errorf("unable to store TOTP secret: %v", err)
 	}
 

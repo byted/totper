@@ -2,6 +2,7 @@
 package keystore
 
 import (
+	"errors"
 	"fmt"
 
 	"github.com/zalando/go-keyring"
@@ -21,7 +22,7 @@ func StoreSecretIfNotExists(id, secret string) error {
 
 func RemoveSecret(id string) error {
 	err := keyring.Delete(buildServiceName(id), "")
-	if err != nil {
+	if err != nil && !errors.Is(err, keyring.ErrNotFound) {
 		return fmt.Errorf("unable to delete secret: %v", err)
 	}
 	return nil

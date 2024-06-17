@@ -5,9 +5,11 @@ package cmd
 
 import (
 	"fmt"
+	"slices"
 
 	"github.com/byted/totper/internal/keystore"
 	"github.com/spf13/cobra"
+	"github.com/spf13/viper"
 )
 
 var removeCmd = &cobra.Command{
@@ -22,10 +24,20 @@ func init() {
 }
 
 func removeAccount(cmd *cobra.Command, args []string) error {
-	if err := keystore.RemoveSecret(args[0]); err != nil {
+	accountName := args[0]
+	ax := viper.GetStringSlice("accounts")
+	lenBefore := len(ax)
+	ax = slices.DeleteFunc(ax, func(a string) bool { return a == accountName })
+	viper.Set("accounts", ax)
+
+	if lenBefore == len(ax) {
+		return fmt.Errorf("TOTP account %s does not exist", accountName)
+	}
+
+	if err := keystore.RemoveSecret(accountName); err != nil {
 		return fmt.Errorf("unable to remove TOTP secret: %s", err)
 	}
 
-	fmt.Printf("Removed TOPT for %s\n", args[0])
+	fmt.Printf("Removed TOPT for %s\n", accountName)
 	return nil
 }
