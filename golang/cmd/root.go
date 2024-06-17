@@ -37,9 +37,6 @@ func init() {
 	})
 
 	rootCmd.PersistentFlags().StringVar(&configFilePath, "config", "", "config file (default is $HOME/.config/totper.yaml)")
-	viper.SetConfigName("totper")
-	viper.SetConfigType("yaml")
-	viper.AddConfigPath("$HOME/.config")
 }
 
 func initConfig() {
