@@ -5,9 +5,9 @@ A simple TOTP manager CLI written in Go.
 # Install
 
 ```
-> go install github.com/byted/totper
+> go install github.com/byted/totper/golang/totper@latest
 > totper help
-A tool to manage TOTP secrets. Secrets are stored in your systems secrets storage.
+A tool to manage TOTP secrets. Secrets are stored in your system's secrets storage.
 
 Usage:
   totper [command]
@@ -25,4 +25,4 @@ Flags:
   -h, --help            help for totper
 
 Use "totper [command] --help" for more information about a command.
-`
+```
