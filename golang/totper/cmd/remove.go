@@ -4,7 +4,7 @@ import (
 	"fmt"
 	"slices"
 
-	"github.com/byted/totper/internal/keystore"
+	"github.com/byted/totper/golang/totper/internal/keystore"
 	"github.com/spf13/cobra"
 	"github.com/spf13/viper"
 )

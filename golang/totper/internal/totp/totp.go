@@ -6,7 +6,7 @@ import (
 	"fmt"
 	"time"
 
-	"github.com/byted/totper/internal/hotp"
+	"github.com/byted/totper/golang/totper/internal/hotp"
 )
 
 type TOTPer struct {

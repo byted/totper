@@ -1,8 +1,11 @@
-module github.com/byted/totper
+module github.com/byted/totper/golang/totper
 
 go 1.22.3
 
-require github.com/zalando/go-keyring v0.2.5
+require (
+	github.com/spf13/cobra v1.8.0
+	github.com/zalando/go-keyring v0.2.5
+)
 
 require (
 	github.com/fsnotify/fsnotify v1.7.0 // indirect
@@ -16,7 +19,6 @@ require (
 	github.com/sourcegraph/conc v0.3.0 // indirect
 	github.com/spf13/afero v1.11.0 // indirect
 	github.com/spf13/cast v1.6.0 // indirect
-	github.com/spf13/cobra v1.8.0 // indirect
 	github.com/spf13/pflag v1.0.5 // indirect
 	github.com/subosito/gotenv v1.6.0 // indirect
 	go.uber.org/atomic v1.9.0 // indirect
